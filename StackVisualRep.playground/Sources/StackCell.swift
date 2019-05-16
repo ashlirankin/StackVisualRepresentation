@@ -2,7 +2,7 @@ import UIKit
 
 public class StackCell: UICollectionViewCell{
   
-  let titleButton: UIButton = {
+  public let titleButton: UIButton = {
     let button = UIButton()
     button.setTitle("0", for: .normal)
     button.setTitleColor(.black, for: .normal)
@@ -18,6 +18,11 @@ public class StackCell: UICollectionViewCell{
   public required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
     commonInit()
+  }
+  public override func layoutSubviews() {
+    super.layoutSubviews()
+    layer.cornerRadius = frame.width/2
+    titleButton.layer.cornerRadius = titleButton.frame.width/2
   }
   
   func commonInit(){

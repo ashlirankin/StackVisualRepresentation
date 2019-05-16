@@ -2,22 +2,25 @@ import Foundation
 
 public struct Stack<T>{
   
-  var container = [T]()
+  public var container = [T]()
   
   public init (){}
   
-  var isEmpty:Bool {
+  public var isEmpty:Bool {
     return container.isEmpty
   }
   
-  var peek:T? {
+  public var peek:T? {
     return container.last
   }
-  
-  mutating func push(value:T){
+  public var count: Int {
+    return container.count
+  }
+  public mutating func push(value:T){
     container.append(value)
   }
-  mutating func pop() -> T? {
+  public mutating func pop() -> T? {
     return container.popLast()
   }
+  
 }
