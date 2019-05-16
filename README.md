@@ -1,1 +1,1 @@
-# Stac kVisual Representation
+# Stack Visual Representation
