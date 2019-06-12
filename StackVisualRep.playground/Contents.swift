@@ -4,11 +4,8 @@ import PlaygroundSupport
 public class StackVisualViewController:UIViewController {
   
   var stackCV = StackCV()
-  var intStack = Stack<Int>(){
-    didSet{
-      stackCV.stackCollectionView.reloadData()
-    }
-  }
+  var intStack = Stack<Int>()
+  
   override public func viewDidLoad() {
     super.viewDidLoad()
     view.addSubview(stackCV)
@@ -24,30 +21,34 @@ public class StackVisualViewController:UIViewController {
   }
   
   @objc func pushButtonPressed(){
-    intStack.push(value: Int.random(in: 0...100))
+    let value = Int.random(in: 0..<100)
+    print(value)
+    intStack.push(value: value)
+    let indexPath = IndexPath(item: 0, section: 0)
+    
+    stackCV.stackCollectionView.insertItems(at: [indexPath])
   }
   @objc func popButtonPressed(){
-    intStack.pop()
-  }
-  func stackAnimations(cell:StackCell){
-    cell.alpha = 0
-    UIView.animate(withDuration: 2.0, delay: 0.5, options: [.beginFromCurrentState], animations: {
-    cell.alpha = 1
-    cell.transform = CGAffineTransform.init(translationX: 1, y: 100)
-    }) { (sucess) in
-      
+    guard !intStack.isEmpty else {
+      return
     }
+    intStack.pop()
+    
+    let indexPath = IndexPath(item: 0, section: 0)
+    
+    
+    
+stackCV.stackCollectionView.deleteItems(at: [indexPath])
   }
- 
 }
 extension StackVisualViewController:UICollectionViewDataSource{
   public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    print("here")
    let value  = intStack.container.reversed()[indexPath.row]
+    
     guard let cell = stackCV.stackCollectionView.dequeueReusableCell(withReuseIdentifier: "StackCell", for: indexPath) as? StackCell else {fatalError("No StackCell found")}
     cell.titleButton.setTitle("\(value)", for: .normal)
     cell.backgroundColor = .blue
-    stackAnimations(cell: cell)
-    
     return cell
   }
   public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

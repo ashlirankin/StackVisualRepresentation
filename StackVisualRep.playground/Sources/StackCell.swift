@@ -26,7 +26,6 @@ public class StackCell: UICollectionViewCell{
   }
   
   func commonInit(){
-    
     setUpViews()
   }
   

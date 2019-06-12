@@ -30,6 +30,8 @@ public class StackCV:UIView {
   public override init(frame: CGRect) {
     super.init(frame: CGRect(x: 120, y: 100, width: 120, height: 400))
     backgroundColor = .white
+    layer.borderWidth = 3
+    layer.borderColor = UIColor.blue.cgColor
     addSubview(stackCollectionView)
     setupViews()
   }
