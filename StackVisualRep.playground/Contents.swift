@@ -12,8 +12,11 @@ public class StackVisualViewController:UIViewController {
     view.backgroundColor = .white
     stackCV.stackCollectionView.dataSource = self
     stackCV.stackCollectionView.delegate = self
+    stackCV.frame = CGRect(x: 0, y: 140, width: view.frame.width, height: 490)
     setButtonsFunctionality()
   }
+  
+  
   
   func setButtonsFunctionality(){
     stackCV.pushButton.addTarget(self, action: #selector(pushButtonPressed), for: .touchUpInside)
@@ -22,38 +25,32 @@ public class StackVisualViewController:UIViewController {
   
   @objc func pushButtonPressed(){
     let value = Int.random(in: 0..<100)
-    print(value)
     intStack.push(value: value)
     let indexPath = IndexPath(item: 0, section: 0)
-    
     stackCV.stackCollectionView.insertItems(at: [indexPath])
   }
+  
   @objc func popButtonPressed(){
-    guard !intStack.isEmpty else {
-      return
-    }
+    guard !intStack.isEmpty else {return}
     intStack.pop()
-    
     let indexPath = IndexPath(item: 0, section: 0)
-    
-    
-    
-stackCV.stackCollectionView.deleteItems(at: [indexPath])
+    stackCV.stackCollectionView.deleteItems(at: [indexPath])
   }
 }
 extension StackVisualViewController:UICollectionViewDataSource{
   public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    print("here")
+ 
    let value  = intStack.container.reversed()[indexPath.row]
-    
+  
     guard let cell = stackCV.stackCollectionView.dequeueReusableCell(withReuseIdentifier: "StackCell", for: indexPath) as? StackCell else {fatalError("No StackCell found")}
+    
     cell.titleButton.setTitle("\(value)", for: .normal)
     cell.backgroundColor = .blue
     return cell
   }
+  
   public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     return intStack.count
-    
   }
 }
 extension StackVisualViewController:UICollectionViewDelegateFlowLayout{
