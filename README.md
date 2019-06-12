@@ -30,3 +30,4 @@ public var peek:T? {
   }
 ```
 ## Demonstration 
+![gif](https://github.com/Ashlirankin18/StackVisualRepresentation/blob/master/StackVisualRepresentation.gif)
